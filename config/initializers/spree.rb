@@ -13,6 +13,8 @@ Spree.config do |config|
   # Example:
   # Uncomment to stop tracking inventory levels in the application
   # config.track_inventory_levels = false
+  SpreeMarketplace::Config[:stripe_publishable_key] = 'pk_test_kb2JPp3y8gvpFETmc3kAMuHj'
+  SpreeMarketplace::Config[:stripe_secret_key] = 'sk_test_hT9lMSRregfIArBUTkqo7Qpa'
 end
 
 Spree.user_class = "Spree::User"
