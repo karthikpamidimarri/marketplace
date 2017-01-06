@@ -14,3 +14,4 @@
 //= require jquery-ui/autocomplete
 //= require frontend/spree_autosuggest
 //= require spree/frontend/spree_multi_currency
+//= require spree/frontend/spree_drop_ship
