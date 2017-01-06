@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170106101515) do
+ActiveRecord::Schema.define(version: 20170106112941) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -452,6 +452,7 @@ ActiveRecord::Schema.define(version: 20170106101515) do
     t.datetime "discontinue_on"
     t.boolean  "can_be_part",          default: false, null: false
     t.boolean  "individual_sale",      default: true,  null: false
+    t.boolean  "featured",             default: false
   end
 
   add_index "spree_products", ["available_on"], name: "index_spree_products_on_available_on", using: :btree
@@ -952,6 +953,19 @@ ActiveRecord::Schema.define(version: 20170106101515) do
 
   add_index "spree_suggestions", ["keywords", "count", "items_found"], name: "index_spree_suggestions_on_keywords_and_count_and_items_found", using: :btree
 
+  create_table "spree_supplier_bank_accounts", force: :cascade do |t|
+    t.string   "masked_number"
+    t.integer  "supplier_id"
+    t.string   "token"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "country_iso"
+    t.string   "name"
+  end
+
+  add_index "spree_supplier_bank_accounts", ["supplier_id"], name: "index_spree_supplier_bank_accounts_on_supplier_id", using: :btree
+  add_index "spree_supplier_bank_accounts", ["token"], name: "index_spree_supplier_bank_accounts_on_token", using: :btree
+
   create_table "spree_supplier_variants", force: :cascade do |t|
     t.integer  "supplier_id"
     t.integer  "variant_id"
@@ -964,10 +978,10 @@ ActiveRecord::Schema.define(version: 20170106101515) do
   add_index "spree_supplier_variants", ["variant_id"], name: "index_spree_supplier_variants_on_variant_id", using: :btree
 
   create_table "spree_suppliers", force: :cascade do |t|
-    t.boolean  "active",                                        default: false, null: false
+    t.boolean  "active",                                               default: false, null: false
     t.integer  "address_id"
-    t.decimal  "commission_flat_rate",  precision: 8, scale: 2, default: 0.0,   null: false
-    t.float    "commission_percentage",                         default: 0.0,   null: false
+    t.decimal  "commission_flat_rate",         precision: 8, scale: 2, default: 0.0,   null: false
+    t.float    "commission_percentage",                                default: 0.0,   null: false
     t.string   "email"
     t.string   "name"
     t.string   "url"
@@ -977,6 +991,11 @@ ActiveRecord::Schema.define(version: 20170106101515) do
     t.string   "tax_id"
     t.string   "token"
     t.string   "slug"
+    t.string   "profile_picture_file_name"
+    t.string   "profile_picture_content_type"
+    t.integer  "profile_picture_file_size"
+    t.datetime "profile_picture_updated_at"
+    t.text     "bio"
   end
 
   add_index "spree_suppliers", ["active"], name: "index_spree_suppliers_on_active", using: :btree
